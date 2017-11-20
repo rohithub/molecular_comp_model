@@ -15,3 +15,5 @@
 %  S2
 %     R + D' --kslow--> D + R
 
+y = biquad_mc(0.2);
+display(y);
