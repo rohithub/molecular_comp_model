@@ -52,6 +52,7 @@ if(num_spl_delay_chem > 1)
 end
 
 start_time = current_time;
+
 %Perform actual chemical reactions
 if (spl_clock_chem == 1)
     if(input_chem(spl_clock_chem_index) == B_ind)
