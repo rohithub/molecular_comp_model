@@ -6,14 +6,14 @@
 
 %Perform Moving average
 
-% Set of Molecular reactions
-% % S1
-%     B + X --kslow--> A + C + B
-%     2A --kfast--> D'
-%     2C --kfast--> Y
-%     B + D --kslow--> Y +B
-%  S2
-%     R + D' --kslow--> D + R
+clc; clear; close all;
 
-y = biquad_mc(0.2);
-display(y);
+num_data = 10;
+y = zeros(1, num_data);
+x = 0.1:0.1:1;
+
+for i=1:num_data
+    y(i) = movAvg_mc(x(i));
+end
+
+plot(x, y);
