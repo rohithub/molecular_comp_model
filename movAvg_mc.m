@@ -11,12 +11,12 @@ function [y, env] = movAvg_mc(x)
     Y_ind = 8;
 
     % Initial concentrations. Keep each value less than 1 and positive
-    B_conc = 0.5;
     A_conc = 0;
     C_conc = 0;
-    T_conc = 0.1;
-    D_conc = 0.1;
-    R_conc = 0.3;
+    D_conc = 0;
+    T_conc = 0;
+    B_conc = 0.5;
+    R_conc = 0.5;
     X_conc = x;
     Y_conc = 0;
 
@@ -41,12 +41,12 @@ function [y, env] = movAvg_mc(x)
     reactants = [C_ind C_ind];
     env = react(reactants, k_fast, env);
     
-    %     B + D --kslow--> Y + B
-    reactants = [B_ind D_ind];
-    env = react(reactants, k_slow, env);
-    
     %     R + D' --kslow--> D + R
     reactants = [R_ind T_ind];
+    env = react(reactants, k_slow, env);
+    
+    %     B + D --kslow--> Y + B
+    reactants = [B_ind D_ind];
     env = react(reactants, k_slow, env);
     
     % Return output

@@ -60,29 +60,35 @@ if (spl_clock_chem == 1)
             if(spl_clock_chem_index == 1)
                 out_env{2, B_ind} = env{2,input_chem(1)};
                 out_env{2, Y_ind} = env{2,input_chem(2)};
+                out_env{2, input_chem(2)} = 0; %Input D becomes 0
             else
                 out_env{2, B_ind} = env{2,input_chem(2)};
                 out_env{2, Y_ind} = env{2,input_chem(1)};
+                out_env{2, input_chem(1)} = 0; %Input D becomes 0
             end
         else % This is B + X -> B + A + C reaction
             if(spl_clock_chem_index == 1)
                 out_env{2, B_ind} = env{2,input_chem(1)};
                 out_env{2, A_ind} = env{2,input_chem(2)};
                 out_env{2, C_ind} = env{2,input_chem(2)};
+                out_env{2, input_chem(2)} = 0; %Input X becomes 0
             else
                 out_env{2, B_ind} = env{2,input_chem(2)};
                 out_env{2, A_ind} = env{2,input_chem(1)};
                 out_env{2, C_ind} = env{2,input_chem(1)};
+                out_env{2, input_chem(1)} = 0; %Input X becomes 0
             end
         end
     else
-        if(input_chem(spl_clock_chem_index) == R_ind)
+        if(input_chem(spl_clock_chem_index) == R_ind) % This is R + T -> R + D reaction
             if(spl_clock_chem_index == 1)
                 out_env{2, R_ind} = env{2,input_chem(1)};
                 out_env{2, D_ind} = env{2,input_chem(2)};
+                out_env{2, input_chem(2)} = 0; %Input T becomes 0
             else
                 out_env{2, R_ind} = env{2,input_chem(2)};
                 out_env{2, D_ind} = env{2,input_chem(1)};
+                out_env{2, input_chem(1)} = 0; %Input T becomes 0
             end
         else
              error('ERROR: Wrong chemicals for S2');
@@ -95,9 +101,11 @@ else
                 if(spl_clock_chem_index == 1)
                     out_env{2, R_ind} = env{2,input_chem(1)};
                     out_env{2, D_ind} = env{2,input_chem(2)};
+                    out_env{2, input_chem(2)} = 0; %Input T becomes 0
                 else
                     out_env{2, R_ind} = env{2,input_chem(2)};
                     out_env{2, D_ind} = env{2,input_chem(1)};
+                    out_env{2, input_chem(1)} = 0; %Input T becomes 0
                 end
             else
                  error('ERROR: Wrong chemicals for S2');
@@ -108,9 +116,11 @@ else
     else % This is the actual reaction for non-special chemicals
         if((input_chem(1) == A_ind) && (input_chem(2) == A_ind))
                 out_env{2, T_ind} = env{2,input_chem(1)}/2;
+                out_env{2, input_chem(1)} = 0; %Input A becomes 0
         else
             if((input_chem(1) == C_ind) && (input_chem(2) == C_ind))
                 out_env{2, Y_ind} = env{2,input_chem(1)}/2;
+                out_env{2, input_chem(1)} = 0; %Input C becomes 0
             else
                 error('ERROR: Wrong input for reactions (A/C)');
             end
