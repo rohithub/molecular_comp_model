@@ -1,4 +1,4 @@
-function [y, env] = movAvg_mc(x)
+function [y, env] = movAvg_bu_mc(x)
 
     % Chemical Indexes: Do Not change this 
     A_ind = 1;
