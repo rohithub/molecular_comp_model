@@ -1,3 +1,5 @@
+%AND gate logic bits analysis using differential equation dictating
+%molecualr computation
 k = 5.56*10^4;
 f = @(t,x) [-k*x(2)*x(1) + 2*k*x(1)*x(3);
             -k*x(2)*x(1) + 2*k*x(2)*x(3);

@@ -1,11 +1,7 @@
 % Molecular Computing Model on MATLAB
 % Referenced paper http://pubs.acs.org/doi/pdf/10.1021/sb300087n 
-
-% We are doing the synchronous mode only. Modelling asynchronous one is
-% very complex
-
+% We are doing the synchronous mode only.
 % Perform Moving average
-
 %env = {'A'    'C'    'B'    'D'    'R'    'T'    'X'    'Y'}
 
 clc; clear; close all;
@@ -29,14 +25,13 @@ R_conc = 0.5;
 X_conc = 0;
 Y_conc = 0;
 
-    
-%input_x = [0.3 0.6 0.7 0.9 0.8 0.5 0.4 0.5 0.3 0.2 0.4 0.5 0.1 0.6 0.4 0.2 0.4 0.1 0.2 0.1 0.7 0.6];
-input_x = [0.3 0.6 0.7 0.9 0.8 0.6 0.3 0.2];
+%Define the input
+input_x = [0.3 0.6 0.7 0.9 0.8 0.5 0.4 0.5 0.3 0.2 0.4 0.5 0.1 0.6 0.4 0.2 0.4 0.1 0.2 0.1 0.7 0.6];
+%input_x = [0.3 0.6 0.7 0.9 0.8 0.6 0.3 0.2];
 
 num_data = size(input_x,2);
 num_chemicals = 8;
 y = zeros(1, num_data);
-
 plot_matrix = [];
 
 if(use_bottom_up_approach == 1)
@@ -74,29 +69,32 @@ end
 end_t = current_time;
 display(end_t - start_t);
 
-%Test code
+%Test code: Generate ground truth
 x_fix = [0 input_x 0];
 y_test = zeros(1, num_data);
 for i=1:num_data
    y_test(i) = (x_fix(i) + x_fix(i+1))/2; 
 end
 
+%Plot graphs
 if(show_plot==1)
     figure;
     hold on;
-    plot(plot_matrix(8,:));
-    plot(y_test, 'r--', 'LineWidth', 2);
+    if(use_bottom_up_approach == 1)
+        plot(plot_matrix(8,:), 'b--');
+    else
+        plot(plot_matrix(8,:), 'k--')
+    end
+    plot(y_test(2:end), 'r', 'LineWidth', 2);
+   
     hold off;
     grid on;
-    xlabel('Test number');
-    ylabel('Expected Output');
-    title('Moving average filter using modeled molecular computing');
+    xlabel('Test number', 'LineWidth', 2);
+    ylabel('Output', 'LineWidth', 2);
+    if(use_bottom_up_approach == 1)
+        title('Moving average filter using Bottom-up Model', 'LineWidth', 2);
+    else
+        title('Moving average filter using Top-down Model', 'LineWidth', 2);
+    end
     legend('Modelled Output', 'Expected output');
 end
-% hold on
-% for i=1:num_chemicals
-%     plot(plot_matrix(8,:));
-% end
-% hold off;
-% leg_vals = cell2mat(env(1,:));
-% legend(leg_vals(1),leg_vals(2),leg_vals(3),leg_vals(4),leg_vals(5),leg_vals(6),leg_vals(7),leg_vals(8));
